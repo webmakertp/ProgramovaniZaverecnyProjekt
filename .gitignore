@@ -1,0 +1,14 @@
+# .NET build output
+bin/
+obj/
+
+# env soubor s heslem
+.env
+
+# Rider / VS Code
+.idea/
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
