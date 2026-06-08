@@ -18,8 +18,12 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+        // nacteni DI a .env pred startem appky
+        Services.Init();
+
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
+            // tady davam do datacontextu mainwindowviewmodel ale ten bude ridit navigaci
             desktop.MainWindow = new MainWindow
             {
                 DataContext = new MainWindowViewModel(),
