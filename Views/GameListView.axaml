@@ -1,0 +1,36 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="clr-namespace:GameTrackerApp.ViewModels"
+             xmlns:dg="clr-namespace:Avalonia.Controls;assembly=Avalonia.Controls.DataGrid"
+             x:Class="GameTrackerApp.Views.GameListView"
+             x:DataType="vm:GameListViewModel">
+
+  <DockPanel LastChildFill="True" Margin="10">
+    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="10" Margin="0,0,0,10">
+      <Button Content="Refresh" Command="{Binding RefreshCommand}" />
+      <Button Content="Pridat hru" Command="{Binding AddCommand}" />
+      <Button Content="Smazat hru" Command="{Binding DeleteCommand}" />
+      <Button Content="Detail" Command="{Binding DetailCommand}" />
+    </StackPanel>
+
+    <dg:DataGrid x:CompileBindings="False"
+                 ItemsSource="{Binding Games}"
+                 SelectedItem="{Binding SelectedGame}"
+                 AutoGenerateColumns="False"
+                 IsReadOnly="True"
+                 GridLinesVisibility="All"
+                 BorderThickness="1"
+                 BorderBrush="Gray">
+      <dg:DataGrid.Columns>
+        <dg:DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="60" />
+        <dg:DataGridTextColumn Header="Nazev" Binding="{Binding Title}" Width="*" />
+        <dg:DataGridTextColumn Header="Vyvojar" Binding="{Binding Developer}" Width="*" />
+        <dg:DataGridTextColumn Header="Rok vydani" Binding="{Binding ReleaseYear}" Width="120" />
+        <dg:DataGridTextColumn Header="Platforma" Binding="{Binding PlatformName}" Width="120" />
+      </dg:DataGrid.Columns>
+    </dg:DataGrid>
+  </DockPanel>
+</UserControl>
