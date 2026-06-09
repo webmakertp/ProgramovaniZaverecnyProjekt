@@ -17,7 +17,12 @@ public partial class MainWindowViewModel : ViewModelBase
     private void ShowGameList()
     {
         var vm = new GameListViewModel();
-        vm.Navigate += vm2 => CurrentView = vm2;
+        vm.Navigate += vm2 =>
+        {
+            if (vm2 is GameFormViewModel formVm)
+                formVm.NavigateBack += ShowGameList;
+            CurrentView = vm2;
+        };
         vm.NavigateToDetail += id => ShowGameDetail(id);
         CurrentView = vm;
     }
