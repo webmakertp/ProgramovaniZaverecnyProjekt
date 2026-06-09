@@ -77,13 +77,13 @@ public partial class GameFormViewModel : ViewModelBase
         // zakladni validace, nic slozityho
         if (string.IsNullOrWhiteSpace(Title))
         {
-            ErrorMessage = "nazev hry nesmi byt prazdny";
+            ErrorMessage = "Název hry nesmí být prázdný";
             return;
         }
 
         if (ReleaseYear < 1970 || ReleaseYear > 2100)
         {
-            ErrorMessage = "rok musi byt mezi 1970 a 2100";
+            ErrorMessage = "Rok musí být mezi 1970 a 2100";
             return;
         }
 
