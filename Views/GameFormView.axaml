@@ -11,10 +11,10 @@
     <TextBlock Text="Formulář hry" FontSize="18" FontWeight="Bold" Margin="0,0,0,10" />
 
     <TextBlock Text="Název:" />
-    <TextBox Text="{Binding Title}" Watermark="Zadej název hry" />
+    <TextBox Text="{Binding Title}" PlaceholderText="Zadej název hry" />
 
     <TextBlock Text="Vývojář:" />
-    <TextBox Text="{Binding Developer}" Watermark="Kdo to udělal" />
+    <TextBox Text="{Binding Developer}" PlaceholderText="Kdo to udělal" />
 
     <TextBlock Text="Rok vydání:" />
     <NumericUpDown Value="{Binding ReleaseYear}" Minimum="1970" Maximum="2100" />

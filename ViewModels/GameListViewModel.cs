@@ -46,10 +46,18 @@ public partial class GameListViewModel : ViewModelBase
 
     private void LoadGames()
     {
-        Games.Clear();
-        var list = _gameRepo.GetAll();
-        foreach (var g in list)
-            Games.Add(g);
+        try
+        {
+            Games.Clear();
+            var list = _gameRepo.GetAll();
+            Console.WriteLine($"[DEBUG] Nacteno {list.Count} her z DB");
+            foreach (var g in list)
+                Games.Add(g);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"[DEBUG] Chyba pri nacitani her: {ex.Message}");
+        }
     }
 
     private void DeleteSelected()
