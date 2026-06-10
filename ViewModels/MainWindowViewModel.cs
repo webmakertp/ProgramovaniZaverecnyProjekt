@@ -32,6 +32,14 @@ public partial class MainWindowViewModel : ViewModelBase
         var vm = new GameDetailViewModel(id);
         vm.NavigateBack += ShowGameList;
         vm.NavigateToEdit += g => ShowGameForm(g);
+        vm.NavigateToSessionForm += (gameId, session) => ShowSessionForm(gameId, session);
+        CurrentView = vm;
+    }
+
+    private void ShowSessionForm(int gameId, GameSession? session)
+    {
+        var vm = new SessionFormViewModel(gameId, session);
+        vm.NavigateBack += () => ShowGameDetail(gameId);
         CurrentView = vm;
     }
 

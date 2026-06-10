@@ -18,7 +18,6 @@ public class PlatformRepository : IPlatformRepository
     {
         var list = new List<Platform>();
 
-        // tady to taha data z db tak snad to nespadne
         using var conn = new NpgsqlConnection(_connString);
         conn.Open();
         using var cmd = new NpgsqlCommand("SELECT Id, Name FROM Platform ORDER BY Id", conn);

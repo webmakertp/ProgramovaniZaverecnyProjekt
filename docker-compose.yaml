@@ -5,10 +5,12 @@ services:
     image: postgres:16
     container_name: gametracker_db
     restart: unless-stopped
+    env_file:
+      - .env
     environment:
-      POSTGRES_USER: gametracker
-      POSTGRES_PASSWORD: gametracker123
-      POSTGRES_DB: gametracker
+      POSTGRES_USER: ${POSTGRES_USER:-gametracker}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-gametracker123}
+      POSTGRES_DB: ${POSTGRES_DB:-gametracker}
     ports:
       - "5432:5432"
     volumes:

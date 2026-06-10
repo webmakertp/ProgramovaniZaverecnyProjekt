@@ -71,7 +71,6 @@ public class GameRepository : IGameRepository
 
     public int Insert(Game game)
     {
-        // ulozeni do databaze, dalo by se to udelat lip ale funguje to
         using var conn = new NpgsqlConnection(_connString);
         conn.Open();
         using var cmd = new NpgsqlCommand(

@@ -19,10 +19,17 @@ public partial class GameDetailViewModel : ViewModelBase
     [ObservableProperty]
     private GameSession? _selectedSession;
 
+    [ObservableProperty]
+    private bool _isDialogOpen;
+
+    [ObservableProperty]
+    private ViewModelBase? _dialogViewModel;
+
     public ObservableCollection<GameSession> Sessions { get; } = new();
 
     public event Action? NavigateBack;
     public event Action<Game?>? NavigateToEdit;
+    public event Action<int, GameSession?>? NavigateToSessionForm;
 
     public IRelayCommand BackCommand { get; }
     public IRelayCommand EditGameCommand { get; }
@@ -59,32 +66,31 @@ public partial class GameDetailViewModel : ViewModelBase
 
     private void AddSession()
     {
-        // pridani nove session, datum je dneska a hodiny 0
-        var session = new GameSession
-        {
-            GameId = Game.Id,
-            DatePlayed = DateTime.Today,
-            HoursPlayed = 0
-        };
-        _sessionRepo.Insert(session);
-        Load(Game.Id);
+        NavigateToSessionForm?.Invoke(Game.Id, null);
     }
 
     private void EditSession()
     {
         if (SelectedSession == null) return;
-
-        // tady by mel byt nejaky dialog ale ja to jen zvysim hodiny o 1 jako demo
-        // TODO: udelat normalni editaci
-        SelectedSession.HoursPlayed += 1;
-        _sessionRepo.Update(SelectedSession);
-        Load(Game.Id);
+        NavigateToSessionForm?.Invoke(Game.Id, SelectedSession);
     }
 
     private void DeleteSession()
     {
         if (SelectedSession == null) return;
-        _sessionRepo.Delete(SelectedSession.Id);
-        Load(Game.Id);
+
+        var confirm = new ConfirmDialogViewModel("Opravdu chcete smazat tuto relaci?");
+        confirm.Result += approved =>
+        {
+            IsDialogOpen = false;
+            DialogViewModel = null;
+            if (approved)
+            {
+                _sessionRepo.Delete(SelectedSession.Id);
+                Load(Game.Id);
+            }
+        };
+        DialogViewModel = confirm;
+        IsDialogOpen = true;
     }
 }

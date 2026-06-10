@@ -18,6 +18,12 @@ public partial class GameListViewModel : ViewModelBase
     [ObservableProperty]
     private string _statusMessage = "nacitam...";
 
+    [ObservableProperty]
+    private bool _isDialogOpen;
+
+    [ObservableProperty]
+    private ViewModelBase? _dialogViewModel;
+
     public ObservableCollection<Game> Games { get; } = new();
 
     // prikazy pro tlacitka
@@ -67,8 +73,18 @@ public partial class GameListViewModel : ViewModelBase
     {
         if (SelectedGame == null) return;
 
-        // TODO: pridat nejaky confirmation dialog
-        _gameRepo.Delete(SelectedGame.Id);
-        LoadGames();
+        var confirm = new ConfirmDialogViewModel($"Opravdu chcete smazat hru '{SelectedGame.Title}'?");
+        confirm.Result += approved =>
+        {
+            IsDialogOpen = false;
+            DialogViewModel = null;
+            if (approved)
+            {
+                _gameRepo.Delete(SelectedGame.Id);
+                LoadGames();
+            }
+        };
+        DialogViewModel = confirm;
+        IsDialogOpen = true;
     }
 }

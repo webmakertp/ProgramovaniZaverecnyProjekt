@@ -7,29 +7,44 @@
              x:Class="GameTrackerApp.Views.GameListView"
              x:DataType="vm:GameListViewModel">
 
-  <DockPanel LastChildFill="True" Margin="10">
-    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="10" Margin="0,0,0,5">
-      <Button Content="Refresh" Command="{Binding RefreshCommand}" />
-      <Button Content="Přidat hru" Command="{Binding AddCommand}" />
-      <Button Content="Smazat hru" Command="{Binding DeleteCommand}" />
-      <Button Content="Detail" Command="{Binding DetailCommand}" />
-    </StackPanel>
-    <TextBlock DockPanel.Dock="Top" Text="{Binding StatusMessage}" Foreground="Gray" Margin="0,0,0,5" />
+  <Grid>
+    <DockPanel LastChildFill="True" Margin="10">
+      <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="10" Margin="0,0,0,5">
+        <Button Content="Refresh" Command="{Binding RefreshCommand}" />
+        <Button Content="Přidat hru" Command="{Binding AddCommand}" />
+        <Button Content="Smazat hru" Command="{Binding DeleteCommand}" />
+        <Button Content="Detail" Command="{Binding DetailCommand}" />
+      </StackPanel>
+      <TextBlock DockPanel.Dock="Top" Text="{Binding StatusMessage}" Foreground="Gray" Margin="0,0,0,5" />
 
-    <ListBox ItemsSource="{Binding Games}"
-             SelectedItem="{Binding SelectedGame}"
-             MinHeight="200">
-      <ListBox.ItemTemplate>
-        <DataTemplate>
-          <StackPanel Orientation="Horizontal" Spacing="10">
-            <TextBlock Text="{Binding Id}" Width="40" />
-            <TextBlock Text="{Binding Title}" Width="200" />
-            <TextBlock Text="{Binding Developer}" Width="150" />
-            <TextBlock Text="{Binding ReleaseYear}" Width="80" />
-            <TextBlock Text="{Binding PlatformName}" Width="100" />
-          </StackPanel>
-        </DataTemplate>
-      </ListBox.ItemTemplate>
-    </ListBox>
-  </DockPanel>
+      <ListBox ItemsSource="{Binding Games}"
+               SelectedItem="{Binding SelectedGame}"
+               MinHeight="200">
+        <ListBox.ItemTemplate>
+          <DataTemplate>
+            <StackPanel Orientation="Horizontal" Spacing="10">
+              <TextBlock Text="{Binding Id}" Width="40" />
+              <TextBlock Text="{Binding Title}" Width="200" />
+              <TextBlock Text="{Binding Developer}" Width="150" />
+              <TextBlock Text="{Binding ReleaseYear}" Width="80" />
+              <TextBlock Text="{Binding PlatformName}" Width="100" />
+            </StackPanel>
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+    </DockPanel>
+
+    <!-- confirmation dialog overlay -->
+    <Border Background="#AA000000"
+            IsVisible="{Binding IsDialogOpen}"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch">
+      <ContentControl Content="{Binding DialogViewModel}"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      Background="White"
+                      Padding="0"
+                      CornerRadius="4" />
+    </Border>
+  </Grid>
 </UserControl>

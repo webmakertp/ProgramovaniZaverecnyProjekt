@@ -7,39 +7,54 @@
              x:Class="GameTrackerApp.Views.GameDetailView"
              x:DataType="vm:GameDetailViewModel">
 
-  <DockPanel LastChildFill="True" Margin="10">
-    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="10" Margin="0,0,0,10">
-      <Button Content="Zpět" Command="{Binding BackCommand}" />
-      <Button Content="Upravit hru" Command="{Binding EditGameCommand}" />
-    </StackPanel>
+  <Grid>
+    <DockPanel LastChildFill="True" Margin="10">
+      <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="10" Margin="0,0,0,10">
+        <Button Content="Zpět" Command="{Binding BackCommand}" />
+        <Button Content="Upravit hru" Command="{Binding EditGameCommand}" />
+      </StackPanel>
 
-    <!-- info o hre -->
-    <StackPanel DockPanel.Dock="Top" Margin="0,0,0,15">
-      <TextBlock FontSize="20" FontWeight="Bold" Text="{Binding Game.Title}" />
-      <TextBlock Text="{Binding Game.Developer, StringFormat='Vývojář: {0}'}" />
-      <TextBlock Text="{Binding Game.ReleaseYear, StringFormat='Rok vydání: {0}'}" />
-      <TextBlock Text="{Binding Game.PlatformName, StringFormat='Platforma: {0}'}" />
-    </StackPanel>
+      <!-- info o hre -->
+      <StackPanel DockPanel.Dock="Top" Margin="0,0,0,15">
+        <TextBlock FontSize="20" FontWeight="Bold" Text="{Binding Game.Title}" />
+        <TextBlock Text="{Binding Game.Developer, StringFormat='Vývojář: {0}'}" />
+        <TextBlock Text="{Binding Game.ReleaseYear, StringFormat='Rok vydání: {0}'}" />
+        <TextBlock Text="{Binding Game.PlatformName, StringFormat='Platforma: {0}'}" />
+      </StackPanel>
 
-    <!-- tlacitka pro sessiony -->
-    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="10" Margin="0,0,0,10">
-      <Button Content="Přidat relaci" Command="{Binding AddSessionCommand}" />
-      <Button Content="Upravit relaci" Command="{Binding EditSessionCommand}" />
-      <Button Content="Smazat relaci" Command="{Binding DeleteSessionCommand}" />
-    </StackPanel>
+      <!-- tlacitka pro sessiony -->
+      <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="10" Margin="0,0,0,10">
+        <Button Content="Přidat relaci" Command="{Binding AddSessionCommand}" />
+        <Button Content="Upravit relaci" Command="{Binding EditSessionCommand}" />
+        <Button Content="Smazat relaci" Command="{Binding DeleteSessionCommand}" />
+      </StackPanel>
 
-    <ListBox ItemsSource="{Binding Sessions}"
-             SelectedItem="{Binding SelectedSession}"
-             MinHeight="200">
-      <ListBox.ItemTemplate>
-        <DataTemplate>
-          <StackPanel Orientation="Horizontal" Spacing="10">
-            <TextBlock Text="{Binding Id}" Width="40" />
-            <TextBlock Text="{Binding DatePlayed, StringFormat='{}{0:dd.MM.yyyy}'}" Width="120" />
-            <TextBlock Text="{Binding HoursPlayed}" Width="80" />
-          </StackPanel>
-        </DataTemplate>
-      </ListBox.ItemTemplate>
-    </ListBox>
-  </DockPanel>
+      <ListBox ItemsSource="{Binding Sessions}"
+               SelectedItem="{Binding SelectedSession}"
+               MinHeight="200">
+        <ListBox.ItemTemplate>
+          <DataTemplate>
+            <StackPanel Orientation="Horizontal" Spacing="10">
+              <TextBlock Text="{Binding Id}" Width="40" />
+              <TextBlock Text="{Binding DatePlayed, StringFormat='{}{0:dd.MM.yyyy}'}" Width="120" />
+              <TextBlock Text="{Binding HoursPlayed}" Width="80" />
+            </StackPanel>
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+    </DockPanel>
+
+    <!-- confirmation dialog overlay -->
+    <Border Background="#AA000000"
+            IsVisible="{Binding IsDialogOpen}"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch">
+      <ContentControl Content="{Binding DialogViewModel}"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      Background="White"
+                      Padding="0"
+                      CornerRadius="4" />
+    </Border>
+  </Grid>
 </UserControl>
