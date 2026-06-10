@@ -29,6 +29,9 @@ public partial class GameFormViewModel : ViewModelBase
     [ObservableProperty]
     private string _errorMessage = string.Empty;
 
+    [ObservableProperty]
+    private string _statusMessage = string.Empty;
+
     public ObservableCollection<Platform> Platforms { get; } = new();
 
     public event Action? NavigateBack;
@@ -97,16 +100,25 @@ public partial class GameFormViewModel : ViewModelBase
             PlatformId = SelectedPlatform?.Id
         };
 
-        if (_existing == null)
+        try
         {
-            _gameRepo.Insert(game);
-        }
-        else
-        {
-            game.Id = _existing.Id;
-            _gameRepo.Update(game);
-        }
+            if (_existing == null)
+            {
+                var id = _gameRepo.Insert(game);
+                StatusMessage = $"ulozeno s id={id}";
+            }
+            else
+            {
+                game.Id = _existing.Id;
+                _gameRepo.Update(game);
+                StatusMessage = "upraveno";
+            }
 
-        NavigateBack?.Invoke();
+            NavigateBack?.Invoke();
+        }
+        catch (Exception ex)
+        {
+            StatusMessage = $"CHYBA pri ulozeni: {ex.Message}";
+        }
     }
 }

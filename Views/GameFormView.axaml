@@ -34,6 +34,7 @@
                Foreground="Red"
                FontWeight="Bold"
                IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+    <TextBlock Text="{Binding StatusMessage}" Foreground="Gray" />
 
     <StackPanel Orientation="Horizontal" Spacing="10" Margin="0,15,0,0">
       <Button Content="Uložit" Command="{Binding SaveCommand}" />

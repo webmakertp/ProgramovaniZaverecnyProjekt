@@ -15,6 +15,9 @@ public partial class GameListViewModel : ViewModelBase
     [ObservableProperty]
     private Game? _selectedGame;
 
+    [ObservableProperty]
+    private string _statusMessage = "nacitam...";
+
     public ObservableCollection<Game> Games { get; } = new();
 
     // prikazy pro tlacitka
@@ -50,13 +53,13 @@ public partial class GameListViewModel : ViewModelBase
         {
             Games.Clear();
             var list = _gameRepo.GetAll();
-            Console.WriteLine($"[DEBUG] Nacteno {list.Count} her z DB");
+            StatusMessage = $"nacteno {list.Count} her";
             foreach (var g in list)
                 Games.Add(g);
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"[DEBUG] Chyba pri nacitani her: {ex.Message}");
+            StatusMessage = $"CHYBA: {ex.Message}";
         }
     }
 

@@ -19,12 +19,10 @@ public class GameRepository : IGameRepository
     public List<Game> GetAll()
     {
         var list = new List<Game>();
-        Console.WriteLine($"[DEBUG] GetAll: pripojuji k DB, connString zacina: {_connString.Substring(0, Math.Min(50, _connString.Length))}...");
 
         // tady delam join na platformu abych mel nazev misto jen cisla
         using var conn = new NpgsqlConnection(_connString);
         conn.Open();
-        Console.WriteLine("[DEBUG] GetAll: pripojeno OK");
         using var cmd = new NpgsqlCommand(
             "SELECT g.Id, g.Title, g.Developer, g.ReleaseYear, g.PlatformId, p.Name " +
             "FROM Game g LEFT JOIN Platform p ON g.PlatformId = p.Id " +
@@ -44,7 +42,6 @@ public class GameRepository : IGameRepository
             });
         }
 
-        Console.WriteLine($"[DEBUG] GetAll: nalezeno {list.Count} her");
         return list;
     }
 
@@ -74,7 +71,6 @@ public class GameRepository : IGameRepository
 
     public int Insert(Game game)
     {
-        Console.WriteLine($"[DEBUG] Insert: ukladam hru '{game.Title}'");
         // ulozeni do databaze, dalo by se to udelat lip ale funguje to
         using var conn = new NpgsqlConnection(_connString);
         conn.Open();
@@ -87,7 +83,6 @@ public class GameRepository : IGameRepository
         cmd.Parameters.AddWithValue("@plat", game.PlatformId.HasValue ? (object)game.PlatformId.Value : DBNull.Value);
 
         var result = cmd.ExecuteScalar();
-        Console.WriteLine($"[DEBUG] Insert: ulozeno s id={result}");
         return result != null ? (int)result : 0;
     }
 

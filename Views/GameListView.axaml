@@ -9,12 +9,13 @@
              x:DataType="vm:GameListViewModel">
 
   <DockPanel LastChildFill="True" Margin="10">
-    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="10" Margin="0,0,0,10">
+    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="10" Margin="0,0,0,5">
       <Button Content="Refresh" Command="{Binding RefreshCommand}" />
       <Button Content="Přidat hru" Command="{Binding AddCommand}" />
       <Button Content="Smazat hru" Command="{Binding DeleteCommand}" />
       <Button Content="Detail" Command="{Binding DetailCommand}" />
     </StackPanel>
+    <TextBlock DockPanel.Dock="Top" Text="{Binding StatusMessage}" Foreground="Gray" Margin="0,0,0,5" />
 
     <dg:DataGrid x:CompileBindings="False"
                  ItemsSource="{Binding Games}"
