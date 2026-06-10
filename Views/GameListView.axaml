@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:vm="clr-namespace:GameTrackerApp.ViewModels"
-             xmlns:dg="clr-namespace:Avalonia.Controls;assembly=Avalonia.Controls.DataGrid"
              x:Class="GameTrackerApp.Views.GameListView"
              x:DataType="vm:GameListViewModel">
 
@@ -17,21 +16,20 @@
     </StackPanel>
     <TextBlock DockPanel.Dock="Top" Text="{Binding StatusMessage}" Foreground="Gray" Margin="0,0,0,5" />
 
-    <dg:DataGrid x:CompileBindings="False"
-                 ItemsSource="{Binding Games}"
-                 SelectedItem="{Binding SelectedGame}"
-                 AutoGenerateColumns="False"
-                 IsReadOnly="True"
-                 GridLinesVisibility="All"
-                 BorderThickness="1"
-                 BorderBrush="Gray">
-      <dg:DataGrid.Columns>
-        <dg:DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="60" />
-        <dg:DataGridTextColumn Header="Název" Binding="{Binding Title}" Width="*" />
-        <dg:DataGridTextColumn Header="Vývojář" Binding="{Binding Developer}" Width="*" />
-        <dg:DataGridTextColumn Header="Rok vydání" Binding="{Binding ReleaseYear}" Width="120" />
-        <dg:DataGridTextColumn Header="Platforma" Binding="{Binding PlatformName}" Width="120" />
-      </dg:DataGrid.Columns>
-    </dg:DataGrid>
+    <ListBox ItemsSource="{Binding Games}"
+             SelectedItem="{Binding SelectedGame}"
+             MinHeight="200">
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <StackPanel Orientation="Horizontal" Spacing="10">
+            <TextBlock Text="{Binding Id}" Width="40" />
+            <TextBlock Text="{Binding Title}" Width="200" />
+            <TextBlock Text="{Binding Developer}" Width="150" />
+            <TextBlock Text="{Binding ReleaseYear}" Width="80" />
+            <TextBlock Text="{Binding PlatformName}" Width="100" />
+          </StackPanel>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
   </DockPanel>
 </UserControl>
