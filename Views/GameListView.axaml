@@ -15,7 +15,12 @@
         <Button Content="Smazat hru" Command="{Binding DeleteCommand}" />
         <Button Content="Detail" Command="{Binding DetailCommand}" />
       </StackPanel>
-      <TextBlock DockPanel.Dock="Top" Text="{Binding StatusMessage}" Foreground="Gray" Margin="0,0,0,5" />
+      <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="10" Margin="0,0,0,5">
+        <TextBlock Text="Seřadit podle:" VerticalAlignment="Center" />
+        <ComboBox ItemsSource="{Binding SortOptions}" SelectedItem="{Binding SelectedSort}" Width="140" />
+        <Button Content="{Binding SortDirectionText}" Command="{Binding ToggleSortCommand}" Width="110" />
+        <TextBlock Text="{Binding StatusMessage}" Foreground="Gray" VerticalAlignment="Center" Margin="10,0,0,0" />
+      </StackPanel>
 
       <ListBox ItemsSource="{Binding Games}"
                SelectedItem="{Binding SelectedGame}"

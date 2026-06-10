@@ -12,3 +12,7 @@ obj/
 # OS files
 .DS_Store
 Thumbs.db
+
+# pomocne veci pro generovani diagramu
+venv/
+generate_er.py
