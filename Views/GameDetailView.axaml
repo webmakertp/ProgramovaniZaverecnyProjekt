@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:vm="clr-namespace:GameTrackerApp.ViewModels"
-             xmlns:dg="clr-namespace:Avalonia.Controls;assembly=Avalonia.Controls.DataGrid"
              x:Class="GameTrackerApp.Views.GameDetailView"
              x:DataType="vm:GameDetailViewModel">
 
@@ -29,19 +28,18 @@
       <Button Content="Smazat relaci" Command="{Binding DeleteSessionCommand}" />
     </StackPanel>
 
-    <dg:DataGrid x:CompileBindings="False"
-                 ItemsSource="{Binding Sessions}"
-                 SelectedItem="{Binding SelectedSession}"
-                 AutoGenerateColumns="False"
-                 IsReadOnly="True"
-                 GridLinesVisibility="All"
-                 BorderThickness="1"
-                 BorderBrush="Gray">
-      <dg:DataGrid.Columns>
-        <dg:DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="60" />
-        <dg:DataGridTextColumn Header="Datum" Binding="{Binding DatePlayed, StringFormat='{}{0:dd.MM.yyyy}'}" Width="150" />
-        <dg:DataGridTextColumn Header="Hodiny" Binding="{Binding HoursPlayed}" Width="100" />
-      </dg:DataGrid.Columns>
-    </dg:DataGrid>
+    <ListBox ItemsSource="{Binding Sessions}"
+             SelectedItem="{Binding SelectedSession}"
+             MinHeight="200">
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <StackPanel Orientation="Horizontal" Spacing="10">
+            <TextBlock Text="{Binding Id}" Width="40" />
+            <TextBlock Text="{Binding DatePlayed, StringFormat='{}{0:dd.MM.yyyy}'}" Width="120" />
+            <TextBlock Text="{Binding HoursPlayed}" Width="80" />
+          </StackPanel>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
   </DockPanel>
 </UserControl>
